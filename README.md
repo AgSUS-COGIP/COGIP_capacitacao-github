@@ -4,25 +4,29 @@ _Aprenda o fluxo de colaboração do dia a dia no GitHub usando um aplicativo vi
 
 ## Boas-vindas
 
-- **Para quem é**: Qualquer pessoa que precise colaborar no GitHub sem usar a linha de comando, incluindo quem não é desenvolvedor(a).
-- **O que você vai aprender**: O fluxo do dia a dia no GitHub — clonar, branches, commits, pull requests, revisões, issues e resolução de conflitos de merge — tudo pelo GitHub Desktop e pelo navegador.
-- **O que você vai construir**: Você vai levar um projeto de jogo de exemplo por um ciclo completo de colaboração.
+- **Para quem é**: Qualquer pessoa que precise colaborar no GitHub de forma visual, incluindo quem não é desenvolvedor(a). O exercício é feito quase todo pelo GitHub Desktop e pelo navegador; apenas um passo de configuração usa a linha de comando (ativar o hook de commits).
+- **O que você vai aprender**: O fluxo do dia a dia no GitHub — clonar, branches, commits, política de commits, `.gitignore`, pull requests, revisões, manter a branch atualizada (Update from main / Rebase), merge, desfazer alterações com segurança, issues e resolução de conflitos de merge — em sua maior parte pelo GitHub Desktop e pelo navegador.
+- **O que você vai construir**: Você vai levar um projeto de exemplo por um ciclo completo de colaboração.
 - **Pré-requisitos**:
 
   - Não é necessária experiência prévia com Git ou GitHub.
   - Você vai instalar o [GitHub Desktop](https://desktop.github.com/) durante o exercício.
 
-- **Duração**: Este exercício leva cerca de 45 minutos para ser concluído.
+- **Duração**: Este exercício leva cerca de 60 minutos para ser concluído.
 
 Neste exercício, você vai:
 
 1. Instalar o GitHub Desktop e clonar um repositório.
 2. Criar uma branch, commitar uma alteração e enviá-la.
-3. Abrir um pull request.
-4. Revisar um pull request.
-5. Mesclar um pull request na `main`.
-6. Acompanhar o trabalho criando uma issue.
-7. Resolver um conflito de merge.
+3. Seguir a política de commits (Conventional Commits) e ativar o hook de validação.
+4. Ignorar arquivos indesejados com um `.gitignore`.
+5. Abrir um pull request.
+6. Revisar um pull request.
+7. Manter a sua branch atualizada com a `main` (Update from main / Rebase).
+8. Mesclar um pull request na `main`.
+9. Desfazer alterações com segurança (Discard, Undo e Revert).
+10. Acompanhar o trabalho criando uma issue.
+11. Resolver um conflito de merge.
 
 ### Como iniciar este exercício
 

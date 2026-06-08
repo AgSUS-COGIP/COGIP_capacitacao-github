@@ -1,23 +1,31 @@
-## Passo 8: Encerramento
+## Passo 8: Faça o Merge do seu Pull Request
 
-Excelente trabalho! 🎉 Você concluiu todo o fluxo de colaboração do dia a dia no GitHub, usando o GitHub Desktop e o navegador, sem encostar na linha de comando.
+Sua alteração foi revisada e sua branch está atualizada com a `main`. Hora de trazê-la para a `main`! Fazer o merge de um pull request adiciona os commits dele à branch base e (geralmente) fecha o pull request.
 
-### 📖 Recapitulando: O ciclo de colaboração
+### 📖 Teoria: O que acontece ao mesclar?
 
-Este é o fluxo que você acabou de praticar, o mesmo que as equipes usam todos os dias:
+Quando você faz o **merge** de um pull request, os commits da sua branch passam a fazer parte da `main`. A partir daí, todos que derem pull na `main` recebem suas alterações. A branch de feature cumpriu seu papel e pode ser apagada com segurança.
 
-1. **Clonar** o repositório para o seu computador.
-2. Criar uma **branch** e **commitar** suas alterações.
-3. **Enviar** (push) a branch e abrir um **pull request**.
-4. **Revisar** as alterações e fazer o **merge** do pull request.
-5. Usar **issues** para acompanhar tarefas e bugs.
-6. **Resolver conflitos** quando duas alterações tocam a mesma linha.
+### ⌨️ Atividade: Faça o merge do pull request e sincronize
 
-### Última tarefa
-    
-Marque a caixa abaixo para concluir o exercício:
+1. Abra seu pull request no GitHub.com.
 
-- [ ] Concluí o exercício e compreendi o fluxo básico de colaboração utilizando GitHub e GitHub Desktop.
+2. Clique no botão verde **Merge pull request** revise a mensagem de commit e adicione uma descrição caso necessário e depois em **Confirm merge**.
 
-Após salvar a alteração no comentário, a revisão final será iniciada automaticamente.
+3. (Recomendado) Clique em **Delete branch** para organizar; os commits estão seguros na `main` agora.
 
+4. Volte ao GitHub Desktop. Clique em **Current Branch** e selecione **`main`**.
+
+5. Clique em **Fetch origin** e depois em **Pull origin** para trazer as alterações mescladas para a sua `main` local, você pode ver o histórico de alterações na aba History do github desktop.
+
+   > 🪧 **Observação**: O pull mantém a cópia do seu computador em sincronia com o GitHub.
+
+6. Com seu pull request mesclado, a Mona vai verificar seu trabalho e compartilhar o próximo passo. 🎉
+
+<details>
+<summary>Com dificuldades? 🤷</summary><br/>
+
+- Se o botão **Merge pull request** estiver acinzentado, confirme que não há verificações obrigatórias pendentes.
+- O merge precisa ser feito no GitHub.com; o GitHub Desktop é usado depois para dar **pull** no resultado.
+
+</details>

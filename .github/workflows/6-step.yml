@@ -1,18 +1,18 @@
-name: Step 6 # Tracking Work with Issues
+name: Step 6 # Review the Pull Request
 
 on:
-  issues:
+  pull_request_review:
     types:
-      - opened
+      - submitted
 
 permissions:
   contents: write
+  pull-requests: read
   actions: write
   issues: write
 
 env:
   STEP_7_FILE: ".github/steps/7-step.md"
-  CONFLICT_BRANCH: "resolve-this-conflict"
 
 concurrency:
   group: "step-6"
@@ -22,6 +22,8 @@ jobs:
   find_exercise:
     name: Find Exercise Issue
     uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@v0.7.0
+    # Only react to a review on the pull request from the expected branch.
+    if: ${{ github.event.pull_request.head.ref == 'add-project-files' }}
 
   check_step_work:
     name: Check step work
@@ -30,12 +32,6 @@ jobs:
     env:
       ISSUE_REPOSITORY: ${{ github.repository }}
       ISSUE_NUMBER: ${{ needs.find_exercise.outputs.issue-number }}
-
-    # Only react to a brand new issue created by the learner,
-    # never the exercise tracking issue or issues opened by the bot.
-    if: |
-      github.event.issue.number != needs.find_exercise.outputs.issue-number
-      && github.event.issue.user.login != 'github-actions[bot]'
 
     steps:
       - name: Checkout
@@ -67,24 +63,18 @@ jobs:
 
       # START: Check practical exercise
 
-      - name: Check for a descriptive issue
-        id: check-for-descriptive-issue
+      - name: Check a review was submitted
+        id: check-review-submitted
         continue-on-error: true
         uses: actions/github-script@v6
         env:
-          issue_title: ${{ github.event.issue.title }}
-          issue_body: ${{ github.event.issue.body }}
+          review_state: ${{ github.event.review.state }}
         with:
           script: |
-            // A good issue needs both a title and a description.
-            const title = (process.env.issue_title || "").trim();
-            const body = (process.env.issue_body || "").trim();
-
-            if (title.length === 0) {
-              throw new Error("The issue has no title.");
-            }
-            if (body.length === 0) {
-              throw new Error("The issue has no description.");
+            // A submitted review (comment / approved / changes_requested) has a state.
+            const state = (process.env.review_state || "").trim();
+            if (state.length === 0) {
+              throw new Error("No review was submitted on the pull request.");
             }
 
       - name: Update comment - step results
@@ -98,8 +88,8 @@ jobs:
           vars: |
             step_number: 6
             results_table:
-              - description: "Criou uma nova issue com título e descrição"
-                passed: ${{ steps.check-for-descriptive-issue.outcome == 'success' }}
+              - description: "Enviou uma revisão no pull request"
+                passed: ${{ steps.check-review-submitted.outcome == 'success' }}
 
       # END: Check practical exercise
 
@@ -129,37 +119,36 @@ jobs:
           path: exercise-toolkit
           ref: v0.7.3
 
-      # Prepare the next step: create a branch that changes the SAME line that we
-      # also change on main, so the learner's pull request into main conflicts.
-      # We only create the branch and update main here (no PR), because the
-      # GITHUB_TOKEN is not allowed to create pull requests.
-      - name: Seed a branch that will conflict with main
+      # Prepare the next step: a colleague pushes a NEW file to main so the
+      # learner's branch diverges and there is something real to bring in via
+      # "Update from main" / "Rebase". We add a brand-new file (not touching
+      # the learner's files) so it never conflicts.
+      - name: Seed a new commit on main
         run: |
           set -e
-          FILE="src/index.html"
+          FILE="NOVIDADES-DA-EQUIPE.md"
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          # Skip seeding if it was already done (avoid duplicates on re-runs)
-          if git ls-remote --exit-code --heads origin "$CONFLICT_BRANCH" >/dev/null 2>&1; then
-            echo "Conflict branch already exists, skipping seed."
-            exit 0
-          fi
-
           git checkout main
           git pull origin main
 
-          # Conflict branch (from main) with one version of the subtitle line.
-          git checkout -b "$CONFLICT_BRANCH"
-          sed -i 's#<div class="subtitle">.*</div>#<div class="subtitle">Match the bugs before they pile up! 🐛</div>#' "$FILE"
-          git commit -am "Propõe um novo texto de subtítulo"
-          git push origin "$CONFLICT_BRANCH"
+          # Skip seeding if it was already done (avoid duplicates on re-runs)
+          if [ -f "$FILE" ]; then
+            echo "Update file already exists, skipping seed."
+            exit 0
+          fi
 
-          # A competing change to the SAME line on main, so the pull request conflicts.
-          git checkout main
-          sed -i 's#<div class="subtitle">.*</div>#<div class="subtitle">Clear the errors to keep the stack stable! 🧱</div>#' "$FILE"
-          git commit -am "Atualiza o subtítulo na main"
+          printf '%s\n' \
+            '# Novidades da equipe' \
+            '' \
+            'Um colega adicionou este arquivo à `main` enquanto você trabalhava na sua branch.' \
+            'Use **Update from main** ou **Rebase current branch** para trazer esta atualização' \
+            'para a sua branch antes de mesclar.' > "$FILE"
+
+          git add "$FILE"
+          git commit -m "docs: adiciona arquivo de novidades da equipe"
           git push origin main
 
       - name: Create comment - step finished

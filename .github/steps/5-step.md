@@ -1,31 +1,43 @@
-## Passo 5: Faça o Merge do seu Pull Request
+## Passo 5: Abra um Pull Request
 
-Sua alteração foi revisada, hora de trazê-la para a `main`! Fazer o merge de um pull request adiciona os commits dele à branch base e (geralmente) fecha o pull request.
+Sua branch está no GitHub, mas ainda não faz parte da `main`. Para propor a mesclagem dela, você abre um **pull request** (PR).
 
-### 📖 Teoria: O que acontece ao mesclar?
+### 📖 Teoria: O que é um Pull Request?
 
-Quando você faz o **merge** de um pull request, os commits da sua branch passam a fazer parte da `main`. A partir daí, todos que derem pull na `main` recebem suas alterações. A branch de feature cumpriu seu papel e pode ser apagada com segurança.
+Um **pull request** é um pedido para mesclar as alterações de uma branch em outra (aqui, de `add-project-files` para `main`). Ele é o coração da colaboração no GitHub porque:
 
-### ⌨️ Atividade: Faça o merge do pull request e sincronize
+- Mostra exatamente **o que mudou**.
+- Dá aos colegas um lugar para **revisar e discutir** antes de mesclar.
+- Mantém a `main` estável, condicionando as mudanças a uma revisão.
 
-1. Abra seu pull request no GitHub.com.
+### ⌨️ Atividade: Abra um pull request a partir da sua branch
 
-2. Clique no botão verde **Merge pull request** revise a mensagem de commit e adicione uma descrição caso necessário e depois em **Confirm merge**.
+1. No GitHub Desktop, com a branch `add-project-files` selecionada, clique no botão **Preview Pull Request** ou **Create Pull Request**. (Você também pode usar **Branch → Create Pull Request**.)
 
-3. (Recomendado) Clique em **Delete branch** para organizar; os commits estão seguros na `main` agora.
+   <br/>
 
-4. Volte ao GitHub Desktop. Clique em **Current Branch** e selecione **`main`**.
+   > 🪧 **Observação**: O GitHub Desktop abre o navegador para finalizar a criação do pull request no GitHub.com.
 
-5. Clique em **Fetch origin** e depois em **Pull origin** para trazer as alterações mescladas para a sua `main` local, você pode ver o histórico de alterações na aba History do github desktop.
+2. No navegador, confirme que o pull request compara:
 
-   > 🪧 **Observação**: O pull mantém a cópia do seu computador em sincronia com o GitHub.
+   - **base:** `main`  ⬅️  **compare:** `add-project-files`
 
-6. Com seu pull request mesclado, a Mona vai verificar seu trabalho e compartilhar o próximo passo. 🎉
+3. Dê um **título** claro ao pull request, exemplo:
+
+   ```txt
+   Add project description file
+   ```
+
+4. Perceba que será apresentado um modelo de Pull Request no campo de descrição, esse modelo será utilizado por nossa organização para ajudar na rastreabilidade de mudanças, fique a vontade para alterar o modelo conforme a necessidade, veja como ficou o modelo clicando em preview.
+
+5. Adicione uma breve **descrição** do que você alterou e clique em **Create pull request**.
+
+6. Com seu pull request aberto, a Mona vai verificar seu trabalho e compartilhar o próximo passo. 🔎
 
 <details>
 <summary>Com dificuldades? 🤷</summary><br/>
 
-- Se o botão **Merge pull request** estiver acinzentado, confirme que não há verificações obrigatórias pendentes.
-- O merge precisa ser feito no GitHub.com; o GitHub Desktop é usado depois para dar **pull** no resultado.
+- Se você não vê o botão **Create Pull Request**, confirme que a branch `add-project-files` está selecionada e publicada.
+- O pull request precisa mesclar **para a `main`** a partir de **`add-project-files`**.
 
 </details>

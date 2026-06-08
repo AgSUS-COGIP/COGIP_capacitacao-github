@@ -1,20 +1,21 @@
-name: Step 4 # Ignoring files with .gitignore
+name: Step 10 # Tracking Work with Issues
 
 on:
-  issue_comment:
+  issues:
     types:
-      - edited
+      - opened
 
 permissions:
-  contents: read
+  contents: write
   actions: write
   issues: write
 
 env:
-  STEP_5_FILE: ".github/steps/5-step.md"
+  STEP_11_FILE: ".github/steps/11-step.md"
+  CONFLICT_BRANCH: "resolve-this-conflict"
 
 concurrency:
-  group: "step-4"
+  group: "step-10"
   cancel-in-progress: true
 
 jobs:
@@ -30,8 +31,11 @@ jobs:
       ISSUE_REPOSITORY: ${{ github.repository }}
       ISSUE_NUMBER: ${{ needs.find_exercise.outputs.issue-number }}
 
-    # Only react to edits on the exercise tracking issue's comments.
-    if: ${{ github.event.issue.number == needs.find_exercise.outputs.issue-number }}
+    # Only react to a brand new issue created by the learner,
+    # never the exercise tracking issue or issues opened by the bot.
+    if: |
+      github.event.issue.number != needs.find_exercise.outputs.issue-number
+      && github.event.issue.user.login != 'github-actions[bot]'
 
     steps:
       - name: Checkout
@@ -63,23 +67,24 @@ jobs:
 
       # START: Check practical exercise
 
-      - name: Check the gitignore checkbox was ticked
-        id: check-gitignore-confirmed
+      - name: Check for a descriptive issue
+        id: check-for-descriptive-issue
         continue-on-error: true
         uses: actions/github-script@v6
         env:
-          comment_body: ${{ github.event.comment.body }}
+          issue_title: ${{ github.event.issue.title }}
+          issue_body: ${{ github.event.issue.body }}
         with:
           script: |
-            // The edited comment must be this step's instructions
-            // (identified by a hidden marker) and have a checked box.
-            const body = process.env.comment_body || "";
+            // A good issue needs both a title and a description.
+            const title = (process.env.issue_title || "").trim();
+            const body = (process.env.issue_body || "").trim();
 
-            if (!body.includes("step-4-gitignore-check")) {
-              throw new Error("This is not the Step 4 confirmation comment.");
+            if (title.length === 0) {
+              throw new Error("The issue has no title.");
             }
-            if (!/- \[[xX]\]/.test(body)) {
-              throw new Error("The confirmation checkbox is not checked yet.");
+            if (body.length === 0) {
+              throw new Error("The issue has no description.");
             }
 
       - name: Update comment - step results
@@ -91,10 +96,10 @@ jobs:
           edit-mode: replace
           file: exercise-toolkit/markdown-templates/step-feedback/step-results-table.md
           vars: |
-            step_number: 4
+            step_number: 10
             results_table:
-              - description: "Criou um arquivo .gitignore e o enviou"
-                passed: ${{ steps.check-gitignore-confirmed.outcome == 'success' }}
+              - description: "Criou uma nova issue com título e descrição"
+                passed: ${{ steps.check-for-descriptive-issue.outcome == 'success' }}
 
       # END: Check practical exercise
 
@@ -113,6 +118,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
 
       - name: Get response templates
         uses: actions/checkout@v4
@@ -121,6 +129,39 @@ jobs:
           path: exercise-toolkit
           ref: v0.7.3
 
+      # Prepare the next step: create a branch that changes the SAME line that we
+      # also change on main, so the learner's pull request into main conflicts.
+      # We only create the branch and update main here (no PR), because the
+      # GITHUB_TOKEN is not allowed to create pull requests.
+      - name: Seed a branch that will conflict with main
+        run: |
+          set -e
+          FILE="src/index.html"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Skip seeding if it was already done (avoid duplicates on re-runs)
+          if git ls-remote --exit-code --heads origin "$CONFLICT_BRANCH" >/dev/null 2>&1; then
+            echo "Conflict branch already exists, skipping seed."
+            exit 0
+          fi
+
+          git checkout main
+          git pull origin main
+
+          # Conflict branch (from main) with one version of the subtitle line.
+          git checkout -b "$CONFLICT_BRANCH"
+          sed -i 's#<div class="subtitle">.*</div>#<div class="subtitle">Match the bugs before they pile up! 🐛</div>#' "$FILE"
+          git commit -am "Propõe um novo texto de subtítulo"
+          git push origin "$CONFLICT_BRANCH"
+
+          # A competing change to the SAME line on main, so the pull request conflicts.
+          git checkout main
+          sed -i 's#<div class="subtitle">.*</div>#<div class="subtitle">Clear the errors to keep the stack stable! 🧱</div>#' "$FILE"
+          git commit -am "Atualiza o subtítulo na main"
+          git push origin main
+
       - name: Create comment - step finished
         uses: GrantBirki/comment@v2.1.1
         with:
@@ -128,14 +169,14 @@ jobs:
           issue-number: ${{ env.ISSUE_NUMBER }}
           file: exercise-toolkit/markdown-templates/step-feedback/step-finished-prepare-next-step.md
           vars: |
-            next_step_number: 5
+            next_step_number: 11
 
       - name: Create comment - add step content
         uses: GrantBirki/comment@v2.1.1
         with:
           repository: ${{ env.ISSUE_REPOSITORY }}
           issue-number: ${{ env.ISSUE_NUMBER }}
-          file: ${{ env.STEP_5_FILE }}
+          file: ${{ env.STEP_11_FILE }}
 
       - name: Create comment - watching for progress
         uses: GrantBirki/comment@v2.1.1
@@ -147,6 +188,6 @@ jobs:
       - name: Disable current workflow and enable next one
         run: |
           gh workflow disable "${{github.workflow}}"
-          gh workflow enable "Step 5"
+          gh workflow enable "Step 11"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

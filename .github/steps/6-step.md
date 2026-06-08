@@ -1,74 +1,42 @@
-## Passo 6: Acompanhando o trabalho com Issues
+## Passo 6: Revise o Pull Request
 
-Nosso projeto está indo bem! Mas, conforme um projeto cresce, você precisa de uma forma de acompanhar bugs, ideias e tarefas, para que nada seja esquecido. Isso é especialmente importante ao colaborar com outras pessoas.
+Antes de mesclar, os colegas **revisam** o pull request. A revisão é como as equipes pegam erros, compartilham conhecimento e concordam sobre o que entra na `main`.
 
-É aqui que entram as **issues**. 🗒️
+### 📖 Teoria: O que é uma revisão?
 
-### 📖 Teoria: O que são Issues?
+Uma **revisão** (review) é um retorno estruturado sobre um pull request. Na aba **Files changed** você pode:
 
-Uma **issue** é uma forma de acompanhar o trabalho diretamente dentro do seu repositório no GitHub. Pense nela como um item de tarefa, um relato de bug ou um tópico de discussão ligado ao seu projeto.
+- Ler o **diff** (linhas adicionadas em verde, removidas em vermelho).
+- Deixar **comentários** em linhas específicas.
+- Enviar um veredito geral: **Comment**, **Approve** ou **Request changes**.
 
-Issues são ótimas para:
+> [!NOTE]
+> O GitHub não permite que você **aprove** o seu *próprio* pull request, então neste exercício individual você enviará uma revisão do tipo **Comment**. Em uma equipe real, um colega faria a aprovação.
 
-- **Relatar bugs**: Descrever algo que não está funcionando como esperado.
-- **Planejar funcionalidades**: Registrar uma ideia antes de começar a desenvolver.
-- **Organizar o trabalho**: Quebrar um objetivo grande em tarefas menores e rastreáveis.
-- **Colaborar**: Discutir o trabalho com a equipe em um só lugar.
+### ⌨️ Atividade: Revise o seu pull request
 
-Para manter tudo organizado, uma issue pode incluir:
+1. Abra seu pull request no GitHub.com (do passo anterior) e clique na aba **Files changed**.
 
-- **Título**: Um resumo curto e claro do trabalho.
-- **Descrição**: Os detalhes, o contexto e os passos para reproduzir (no caso de bugs).
-- **Labels**: Etiquetas como `bug`, `enhancement` ou `documentation`.
-- **Assignees**: As pessoas responsáveis pelo trabalho.
-- **Milestones**: Um grupo de issues trabalhando rumo a um objetivo maior.
+2. Veja o diff para conferir exatamente o que sua branch altera. 👀
 
-> [!TIP]
-> Um bom título de issue é específico. "Bug" é difícil de agir, mas "Erro no login, campo nome não funciona" diz a todos exatamente o que olhar.
+3. (Opcional) Passe o mouse sobre uma linha e clique no **+** azul para deixar um comentário na linha.
 
-### ⌨️ Atividade: Crie uma issue
+4. Clique no botão verde **Submit review** (canto superior direito).
 
-Enquanto desenvolvia o projeto, você notou que a funcionalidade implementada nem sempre se comporta como esperado. Vamos registrar isso com uma issue!
-
-> [!IMPORTANT]
-> Crie esta issue na **sua cópia** do repositório do exercício, e não na issue de acompanhamento que a Mona usa neste exercício.
-
-1. Em uma nova aba do navegador, abra a aba **Issues** do seu repositório.
-
-   [Abrir a aba Issues →](../../colaborar-com-github-desktop/issues)
-
-2. Clique no botão verde **New issue**, note que temos alguns templates para issues, utilize a que for adequada ao contexto, caso nenhuma seja clique em blank issue para criar uma issue sem um template específico.
-
-3. Dê um **título** claro e específico à sua issue.
+5. Escreva um resumo curto, por exemplo:
 
    ```txt
-   Bug: Erro no login, campo nome não funciona.
+   Ficou bom, a descrição do projeto está clara.
    ```
 
-4. Adicione uma **descrição** com alguns detalhes úteis.
+6. Selecione **Comment** e clique em **Submit review**.
 
-   ```md
-   ## O que acontece
-   O campo nome não aceita entradas.
-
-   ## Comportamento esperado
-   O campo nome deveria aceitar inputs de usuários.
-
-   ## Observações
-   Provavelmente relacionado a como foi implementado o campo.
-   ```
-
-5. Clique em **Create** para criá-la.
-
-6. Com sua issue criada, a Mona já estará verificando seu trabalho. Dê um instante a ela e fique de olho nos comentários. Você verá a resposta com o progresso e os próximos passos.
-
-> [!TIP]
-> Você também pode criar issues a partir do GitHub Desktop em **Repository → Create issue on GitHub**, que abre o repositório no seu navegador.
+7. Com sua revisão enviada, a Mona vai verificar seu trabalho e compartilhar o próximo passo. ✅
 
 <details>
 <summary>Com dificuldades? 🤷</summary><br/>
 
-- Confirme que você está criando a issue na **sua** cópia do repositório.
-- Uma issue precisa de **título** e **descrição** para a Mona marcar este passo como concluído.
+- Confirme que você clicou em **Submit review**; apenas digitar um comentário não é suficiente.
+- A opção **Approve** fica desabilitada porque você é o autor; use **Comment**.
 
 </details>
