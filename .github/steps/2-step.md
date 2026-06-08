@@ -46,7 +46,7 @@ O fluxo típico é:
    Add project description file
    ```
 
-1. ![Sinalização do campo a ser preenchido no github desktop](../../src\images\commit-desktop.png)
+1. ![Sinalização do campo a ser preenchido no github desktop](../../src/images/commit-desktop.png)
 
 > [!NOTE]
 > Não se procupe com a nossa política de commits por agora, vamos ter tempo para nos ambientarmos com isso depois.
