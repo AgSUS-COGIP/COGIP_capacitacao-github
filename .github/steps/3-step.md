@@ -1,43 +1,103 @@
-## Passo 3: Abra um Pull Request
+<!-- step-3-commit-policy-check -->
 
-Sua branch está no GitHub, mas ainda não faz parte da `main`. Para propor a mesclagem dela, você abre um **pull request** (PR).
+## Passo 3: Política de commits (Conventional Commits)
 
-### 📖 Teoria: O que é um Pull Request?
+No passo anterior você fez seu primeiro commit e pedimos para não se preocupar com a política de commits. Chegou a hora! 🎯 Mensagens de commit padronizadas deixam o histórico do projeto legível, facilitam a geração de changelogs e ajudam toda a equipe a entender **o que** mudou e **por quê**.
 
-Um **pull request** é um pedido para mesclar as alterações de uma branch em outra (aqui, de `add-project-files` para `main`). Ele é o coração da colaboração no GitHub porque:
+### 📖 Teoria: O que é Conventional Commits?
 
-- Mostra exatamente **o que mudou**.
-- Dá aos colegas um lugar para **revisar e discutir** antes de mesclar.
-- Mantém a `main` estável, condicionando as mudanças a uma revisão.
+Nossa organização adota o padrão **[Conventional Commits](https://www.conventionalcommits.org/pt-br/)**. Toda mensagem de commit deve seguir o formato:
 
-### ⌨️ Atividade: Abra um pull request a partir da sua branch
+```txt
+<tipo>(<escopo opcional>): <descrição>
+```
 
-1. No GitHub Desktop, com a branch `add-project-files` selecionada, clique no botão **Preview Pull Request** ou **Create Pull Request**. (Você também pode usar **Branch → Create Pull Request**.)
+- **tipo**: a natureza da mudança (obrigatório).
+- **escopo**: a parte do projeto afetada, entre parênteses (opcional). Ex.: `(auth)`, `(login)`.
+- **descrição**: um resumo curto, no imperativo, em letra minúscula.
 
-   <br/>
+Os **tipos válidos** na nossa política são:
 
-   > 🪧 **Observação**: O GitHub Desktop abre o navegador para finalizar a criação do pull request no GitHub.com.
+| Tipo | Quando usar |
+| :--- | :--- |
+| `feat` | Uma nova funcionalidade. |
+| `fix` | Correção de um bug. |
+| `docs` | Alterações apenas na documentação. |
+| `style` | Formatação, espaços, ponto e vírgula (sem mudar lógica). |
+| `refactor` | Refatoração que não corrige bug nem adiciona funcionalidade. |
+| `test` | Adicionar ou atualizar testes. |
+| `chore` | Tarefas rotineiras (dependências, ferramentas de build). |
+| `build` | Mudanças no sistema de build ou dependências externas. |
+| `ci` | Mudanças em configuração ou scripts de CI. |
+| `perf` | Melhorias de desempenho. |
+| `revert` | Reverter um commit anterior. |
 
-2. No navegador, confirme que o pull request compara:
+**Exemplos válidos:**
 
-   - **base:** `main`  ⬅️  **compare:** `add-project-files`
+```txt
+feat(login): adiciona validação do campo nome
+fix: corrige cálculo de pontuação
+docs: atualiza instruções de instalação
+chore: adiciona arquivo de configuração do editor
+```
 
-3. Dê um **título** claro ao pull request, exemplo:
+### 🔒 Como a política é garantida: o hook `commit-msg`
 
-   ```txt
-   Add project description file
+Este repositório já inclui um **hook de validação** em [`.githooks/commit-msg`](../../blob/main/.githooks/commit-msg). Ele inspeciona cada mensagem de commit e **rejeita** as que estão fora do padrão.
+
+Mas o Git **não** usa essa pasta automaticamente — por segurança, hooks ficam desativados até você habilitá-los. Você precisa fazer isso **uma vez** em cada cópia clonada.
+
+> [!IMPORTANT]
+> Este é o único momento do exercício em que usamos a linha de comando. É um passo de configuração rápido e feito uma única vez.
+
+1. Abra um terminal **na pasta do repositório**. No GitHub Desktop, vá em **Repository → Open in Command Prompt** (Windows) ou **Open in Terminal**.
+
+2. Aponte o Git para a pasta de hooks do projeto e garanta que o hook seja executável:
+
+   ```bash
+   git config core.hooksPath .githooks && chmod +x .githooks/commit-msg
    ```
 
-4. Perceba que será apresentado um modelo de Pull Request no campo de descrição, esse modelo será utilizado por nossa organização para ajudar na rastreabilidade de mudanças, fique a vontade para alterar o modelo conforme a necessidade, veja como ficou o modelo clicando em preview.
+   > 🪧 **Observação**: o `git config core.hooksPath .githooks` diz ao Git para procurar hooks na pasta `.githooks` do projeto. O `chmod +x` marca o arquivo como executável (necessário em Linux/macOS; no Windows com Git Bash não causa problemas).
 
-5. Adicione uma breve **descrição** do que você alterou e clique em **Create pull request**.
+3. Pronto! A partir de agora, qualquer commit feito neste repositório — pela linha de comando **ou** pelo GitHub Desktop — será validado pelo hook.
 
-6. Com seu pull request aberto, a Mona vai verificar seu trabalho e compartilhar o próximo passo. 🔎
+### ⌨️ Atividade: Faça um commit seguindo a política
+
+1. No seu editor, faça uma pequena alteração na branch `add-project-files` — por exemplo, adicione uma linha ao `PROJECT.md`.
+
+2. No GitHub Desktop, escreva o **Summary** seguindo o padrão Conventional Commits, por exemplo:
+
+   ```txt
+   docs: adiciona seção de objetivos ao PROJECT.md
+   ```
+
+   > [!TIP]
+   > Precisa explicar melhor a mudança? Escreva um título curto no **Summary** e detalhes no campo **Description** logo abaixo.
+
+3. Clique em **Commit to add-project-files** e depois em **Push origin**.
+
+   > [!NOTE]
+   > Se a mensagem estiver fora do padrão, o hook bloqueia o commit e mostra o formato esperado. Ajuste o **Summary** e tente novamente.
+
+### ✅ Marque este passo como concluído
+
+Como a ativação do hook acontece no seu computador, confirme você mesmo:
+
+1. Vá ao início deste comentário com as instruções deste passo.
+2. Clique no menu **`···`** no canto superior direito do comentário e escolha **Edit**.
+3. Marque a caixa trocando `[ ]` por `[x]` e clique em **Update comment**. Obs: não deixe espaços, deve ser exatamente `[x]`.
+
+- [ ] Ativei o hook de commits com `git config core.hooksPath .githooks` e fiz um commit seguindo o padrão Conventional Commits.
+
+A Mona verá sua atualização e compartilhará o próximo passo. 🚀
 
 <details>
 <summary>Com dificuldades? 🤷</summary><br/>
 
-- Se você não vê o botão **Create Pull Request**, confirme que a branch `add-project-files` está selecionada e publicada.
-- O pull request precisa mesclar **para a `main`** a partir de **`add-project-files`**.
+- O formato é `<tipo>: <descrição>` — não esqueça os **dois-pontos e o espaço** após o tipo.
+- Use somente os tipos da tabela acima; qualquer outro será rejeitado pelo hook.
+- Rode o comando de ativação **dentro da pasta do repositório**, senão o Git não encontra a pasta `.githooks`.
+- No Windows, se `chmod` não for reconhecido, use o terminal **Git Bash** (vem com o Git) ou apenas rode a primeira parte: `git config core.hooksPath .githooks`.
 
 </details>

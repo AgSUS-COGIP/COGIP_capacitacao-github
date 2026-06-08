@@ -1,18 +1,12 @@
-name: Step 3
+name: Step 3 # Commit Policy (Conventional Commits)
 
 on:
-  pull_request:
-    branches:
-      - main
+  issue_comment:
     types:
-      - opened
-      - reopened
       - edited
-      - synchronize
 
 permissions:
   contents: read
-  pull-requests: read
   actions: write
   issues: write
 
@@ -27,8 +21,6 @@ jobs:
   find_exercise:
     name: Find Exercise Issue
     uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@v0.7.0
-    # Only react to the pull request opened from the expected branch.
-    if: ${{ github.head_ref == 'add-project-files' }}
 
   check_step_work:
     name: Check step work
@@ -37,6 +29,9 @@ jobs:
     env:
       ISSUE_REPOSITORY: ${{ github.repository }}
       ISSUE_NUMBER: ${{ needs.find_exercise.outputs.issue-number }}
+
+    # Only react to edits on the exercise tracking issue's comments.
+    if: ${{ github.event.issue.number == needs.find_exercise.outputs.issue-number }}
 
     steps:
       - name: Checkout
@@ -68,23 +63,23 @@ jobs:
 
       # START: Check practical exercise
 
-      - name: Check the pull request targets main with a title
-        id: check-pull-request
+      - name: Check the commit policy checkbox was ticked
+        id: check-commit-policy-confirmed
         continue-on-error: true
         uses: actions/github-script@v6
         env:
-          base_ref: ${{ github.base_ref }}
-          pr_title: ${{ github.event.pull_request.title }}
+          comment_body: ${{ github.event.comment.body }}
         with:
           script: |
-            const baseRef = process.env.base_ref || "";
-            const title = (process.env.pr_title || "").trim();
+            // The edited comment must be this step's instructions
+            // (identified by a hidden marker) and have a checked box.
+            const body = process.env.comment_body || "";
 
-            if (baseRef !== "main") {
-              throw new Error("The pull request must target the 'main' branch.");
+            if (!body.includes("step-3-commit-policy-check")) {
+              throw new Error("This is not the Step 3 confirmation comment.");
             }
-            if (title.length === 0) {
-              throw new Error("The pull request needs a title.");
+            if (!/- \[[xX]\]/.test(body)) {
+              throw new Error("The confirmation checkbox is not checked yet.");
             }
 
       - name: Update comment - step results
@@ -98,8 +93,8 @@ jobs:
           vars: |
             step_number: 3
             results_table:
-              - description: "Abriu um pull request de 'add-project-files' para 'main'"
-                passed: ${{ steps.check-pull-request.outcome == 'success' }}
+              - description: "Ativou o hook de commits e seguiu a política de commits"
+                passed: ${{ steps.check-commit-policy-confirmed.outcome == 'success' }}
 
       # END: Check practical exercise
 

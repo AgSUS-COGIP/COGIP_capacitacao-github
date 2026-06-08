@@ -1,15 +1,12 @@
-name: Step 7 # Resolving a Merge Conflict
+name: Step 7 # Keep your branch up to date (Update from main / Rebase)
 
 on:
-  pull_request:
-    branches:
-      - main
+  issue_comment:
     types:
-      - closed
+      - edited
 
 permissions:
   contents: read
-  pull-requests: read
   actions: write
   issues: write
 
@@ -24,8 +21,6 @@ jobs:
   find_exercise:
     name: Find Exercise Issue
     uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@v0.7.0
-    # Only react when the seeded conflict pull request is merged.
-    if: ${{ github.event.pull_request.merged == true && github.head_ref == 'resolve-this-conflict' }}
 
   check_step_work:
     name: Check step work
@@ -34,6 +29,9 @@ jobs:
     env:
       ISSUE_REPOSITORY: ${{ github.repository }}
       ISSUE_NUMBER: ${{ needs.find_exercise.outputs.issue-number }}
+
+    # Only react to edits on the exercise tracking issue's comments.
+    if: ${{ github.event.issue.number == needs.find_exercise.outputs.issue-number }}
 
     steps:
       - name: Checkout
@@ -65,16 +63,23 @@ jobs:
 
       # START: Check practical exercise
 
-      - name: Check the conflict pull request was merged
-        id: check-conflict-merged
+      - name: Check the rebase checkbox was ticked
+        id: check-rebase-confirmed
         continue-on-error: true
         uses: actions/github-script@v6
         env:
-          merged: ${{ github.event.pull_request.merged }}
+          comment_body: ${{ github.event.comment.body }}
         with:
           script: |
-            if (process.env.merged !== "true") {
-              throw new Error("The conflict pull request was closed without merging.");
+            // The edited comment must be this step's instructions
+            // (identified by a hidden marker) and have a checked box.
+            const body = process.env.comment_body || "";
+
+            if (!body.includes("step-7-rebase-check")) {
+              throw new Error("This is not the Step 7 confirmation comment.");
+            }
+            if (!/- \[[xX]\]/.test(body)) {
+              throw new Error("The confirmation checkbox is not checked yet.");
             }
 
       - name: Update comment - step results
@@ -88,8 +93,8 @@ jobs:
           vars: |
             step_number: 7
             results_table:
-              - description: "Resolveu o conflito de merge e mesclou o pull request"
-                passed: ${{ steps.check-conflict-merged.outcome == 'success' }}
+              - description: "Atualizou a branch pela 'main' (Update from main / Rebase)"
+                passed: ${{ steps.check-rebase-confirmed.outcome == 'success' }}
 
       # END: Check practical exercise
 

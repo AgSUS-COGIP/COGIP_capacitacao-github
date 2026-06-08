@@ -1,4 +1,4 @@
-name: Step 4 # Ignoring files with .gitignore
+name: Step 9 # Undo safely (Discard, Undo and Revert)
 
 on:
   issue_comment:
@@ -11,10 +11,10 @@ permissions:
   issues: write
 
 env:
-  STEP_5_FILE: ".github/steps/5-step.md"
+  STEP_10_FILE: ".github/steps/10-step.md"
 
 concurrency:
-  group: "step-4"
+  group: "step-9"
   cancel-in-progress: true
 
 jobs:
@@ -63,8 +63,8 @@ jobs:
 
       # START: Check practical exercise
 
-      - name: Check the gitignore checkbox was ticked
-        id: check-gitignore-confirmed
+      - name: Check the undo checkbox was ticked
+        id: check-undo-confirmed
         continue-on-error: true
         uses: actions/github-script@v6
         env:
@@ -75,8 +75,8 @@ jobs:
             // (identified by a hidden marker) and have a checked box.
             const body = process.env.comment_body || "";
 
-            if (!body.includes("step-4-gitignore-check")) {
-              throw new Error("This is not the Step 4 confirmation comment.");
+            if (!body.includes("step-9-undo-check")) {
+              throw new Error("This is not the Step 9 confirmation comment.");
             }
             if (!/- \[[xX]\]/.test(body)) {
               throw new Error("The confirmation checkbox is not checked yet.");
@@ -91,10 +91,10 @@ jobs:
           edit-mode: replace
           file: exercise-toolkit/markdown-templates/step-feedback/step-results-table.md
           vars: |
-            step_number: 4
+            step_number: 9
             results_table:
-              - description: "Criou um arquivo .gitignore e o enviou"
-                passed: ${{ steps.check-gitignore-confirmed.outcome == 'success' }}
+              - description: "Entendeu e praticou desfazer com segurança (Discard / Undo / Revert)"
+                passed: ${{ steps.check-undo-confirmed.outcome == 'success' }}
 
       # END: Check practical exercise
 
@@ -128,14 +128,14 @@ jobs:
           issue-number: ${{ env.ISSUE_NUMBER }}
           file: exercise-toolkit/markdown-templates/step-feedback/step-finished-prepare-next-step.md
           vars: |
-            next_step_number: 5
+            next_step_number: 10
 
       - name: Create comment - add step content
         uses: GrantBirki/comment@v2.1.1
         with:
           repository: ${{ env.ISSUE_REPOSITORY }}
           issue-number: ${{ env.ISSUE_NUMBER }}
-          file: ${{ env.STEP_5_FILE }}
+          file: ${{ env.STEP_10_FILE }}
 
       - name: Create comment - watching for progress
         uses: GrantBirki/comment@v2.1.1
@@ -147,6 +147,6 @@ jobs:
       - name: Disable current workflow and enable next one
         run: |
           gh workflow disable "${{github.workflow}}"
-          gh workflow enable "Step 5"
+          gh workflow enable "Step 10"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

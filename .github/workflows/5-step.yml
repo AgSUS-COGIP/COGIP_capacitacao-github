@@ -1,11 +1,14 @@
-name: Step 5
+name: Step 5 # Open a Pull Request
 
 on:
   pull_request:
     branches:
       - main
     types:
-      - closed
+      - opened
+      - reopened
+      - edited
+      - synchronize
 
 permissions:
   contents: read
@@ -24,8 +27,8 @@ jobs:
   find_exercise:
     name: Find Exercise Issue
     uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@v0.7.0
-    # Only react when the expected pull request is actually merged.
-    if: ${{ github.event.pull_request.merged == true && github.head_ref == 'add-project-files' }}
+    # Only react to the pull request opened from the expected branch.
+    if: ${{ github.head_ref == 'add-project-files' }}
 
   check_step_work:
     name: Check step work
@@ -65,16 +68,23 @@ jobs:
 
       # START: Check practical exercise
 
-      - name: Check the pull request was merged
-        id: check-pull-request-merged
+      - name: Check the pull request targets main with a title
+        id: check-pull-request
         continue-on-error: true
         uses: actions/github-script@v6
         env:
-          merged: ${{ github.event.pull_request.merged }}
+          base_ref: ${{ github.base_ref }}
+          pr_title: ${{ github.event.pull_request.title }}
         with:
           script: |
-            if (process.env.merged !== "true") {
-              throw new Error("The pull request was closed without merging.");
+            const baseRef = process.env.base_ref || "";
+            const title = (process.env.pr_title || "").trim();
+
+            if (baseRef !== "main") {
+              throw new Error("The pull request must target the 'main' branch.");
+            }
+            if (title.length === 0) {
+              throw new Error("The pull request needs a title.");
             }
 
       - name: Update comment - step results
@@ -88,8 +98,8 @@ jobs:
           vars: |
             step_number: 5
             results_table:
-              - description: "Mesclou o pull request na 'main'"
-                passed: ${{ steps.check-pull-request-merged.outcome == 'success' }}
+              - description: "Abriu um pull request de 'add-project-files' para 'main'"
+                passed: ${{ steps.check-pull-request.outcome == 'success' }}
 
       # END: Check practical exercise
 

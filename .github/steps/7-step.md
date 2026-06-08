@@ -1,60 +1,62 @@
-## Passo 7: Resolva um Conflito de Merge
+<!-- step-7-rebase-check -->
 
-Às vezes duas pessoas alteram a **mesma linha** de formas diferentes. O Git não consegue decidir qual versão está correta, então ele pede que um humano escolha. Isso é um **conflito de merge**, e faz parte da colaboração. 😌
+## Passo 7: Mantenha sua branch atualizada (Update from main / Rebase)
 
-Para você praticar de forma realista, **criamos a branch `resolve-this-conflict`** que altera o subtítulo do projeto. Enquanto isso, um colega alterou **a mesma linha** na `main`. Quando você abrir um pull request dessa branch para a `main`, o GitHub vai apontar o conflito para você resolver.
+Enquanto você revisava o seu trabalho, **um colega enviou uma alteração para a `main`** (adicionou um arquivo de novidades da equipe). Agora a sua branch está **desatualizada** em relação à `main`. Antes de mesclar, é uma boa prática trazer essas atualizações para a sua branch — isso evita surpresas e reduz conflitos no momento do merge. 🔄
 
-### 📖 Teoria: Anatomia de um conflito
+### 📖 Teoria: Por que e como atualizar a branch?
 
-Quando ocorre um conflito, o GitHub (e o Git) marcam o trecho em disputa com três marcadores:
+Quando a `main` avança e a sua branch não, elas **divergem**. O GitHub Desktop oferece duas formas de colocar sua branch em dia:
+
+- **Update from main** (*Merge*): traz a `main` para dentro da sua branch criando um **commit de merge**. É simples, seguro e preserva o histórico exatamente como aconteceu.
+
+- **Rebase current branch** (*Rebase*): **reaplica os seus commits por cima** da `main` atualizada, como se você tivesse começado a trabalhar agora. O histórico fica **linear** e mais limpo, sem commits de merge.
 
 ```diff
-<<<<<<< main
-A versão que está atualmente na main
-=======
-A versão da branch que está sendo mesclada
->>>>>>> resolve-this-conflict
+  Merge (Update from main):          Rebase:
+  main:  A───B───C                   main:  A───B───C
+              \   \                                  \
+  branch:      D───M (merge)         branch:          D'──E'
 ```
 
-Para resolver, você escolhe o conteúdo final (manter um lado, o outro ou combinar) e **remove os três marcadores**.
+> [!TIP]
+> Regra prática da equipe: use **Update from main** quando estiver em dúvida (é o mais seguro). Use **Rebase** quando quiser um histórico linear e a branch ainda for **só sua**.
 
-### ⌨️ Atividade 1: Abra o pull request e resolva o conflito (recomendado)
+> [!IMPORTANT]
+> **Nunca faça rebase de uma branch compartilhada** que outras pessoas já estão usando. O rebase reescreve o histórico (os commits ganham novos identificadores), o que bagunça o trabalho de quem baixou a branch antiga.
 
-1. Abra o formulário de novo pull request já preenchido pelo link abaixo (base `main`, comparando com `resolve-this-conflict`):
+### ⌨️ Atividade: Atualize a sua branch pela `main`
 
-   [Abrir o pull request →](../../colaborar-com-github-desktop/compare/main...resolve-this-conflict?expand=1)
+1. No GitHub Desktop, clique em **Fetch origin** para baixar as últimas mudanças do servidor. Você verá que a `main` recebeu um novo commit.
 
-1. Dê um título, por exemplo `Resolver conflito do subtítulo`, e clique em **Create pull request**.
+2. Confirme que a branch `add-project-files` está selecionada em **Current Branch**.
 
-1. O GitHub mostra *"This branch has conflicts that must be resolved."* Clique no botão **Resolve conflicts**.
+3. Escolha **uma** das opções no menu **Branch** do topo:
 
-1. No editor da web, encontre o conflito em `src/index.html`. Apague os marcadores (`<<<<<<<`, `=======`, `>>>>>>>`) e mantenha uma **única** linha de subtítulo, por exemplo:
+   - **Branch → Update from main** — para trazer a `main` via merge, **ou**
+   - **Branch → Rebase current branch...** e selecione **`main`** — para reaplicar seus commits por cima da `main`.
 
-   ```html
-   <div class="subtitle">Clear the errors to keep the stack stable! 🧱</div>
-   ```
+   <br/>
 
-1. Clique em **Mark as resolved** e depois em **Commit merge**.
+   > 🪧 **Observação**: como o arquivo enviado pelo colega é **diferente** dos seus, não haverá conflito — a sua branch apenas incorpora o commit novo da `main`. (Resolver conflitos de verdade vem em um passo mais adiante. 😉)
 
-1. De volta ao pull request, clique em **Merge pull request** e depois em **Confirm merge**.
+4. Se você fez **rebase**, o Desktop pode pedir um **Push** com a opção **force-with-lease** (porque o histórico foi reescrito). Confirme o push. Se fez **Update from main**, basta um **Push origin** normal.
 
-1. Com o conflito resolvido e mesclado, a Mona vai verificar seu trabalho e compartilhar o passo final. 🎉
+### ✅ Marque este passo como concluído
 
-### ⌨️ Atividade 2 (alternativa): Resolva no GitHub Desktop
+1. Vá ao início deste comentário com as instruções deste passo.
+2. Clique no menu **`···`** no canto superior direito do comentário e escolha **Edit**.
+3. Marque a caixa trocando `[ ]` por `[x]` e clique em **Update comment**. Obs: deve ser exatamente `[x]`.
 
-Prefere resolver localmente? Também dá (depois ainda será preciso abrir e mesclar o pull request no GitHub.com):
+- [ ] Atualizei minha branch pela `main` usando **Update from main** ou **Rebase current branch**.
 
-1. No GitHub Desktop, clique em **Fetch origin** e mude para a branch `resolve-this-conflict`.
-1. Escolha **Branch → Merge into current branch...** e selecione **`main`**. O Desktop vai apontar o conflito.
-1. Clique em **Open in your editor**, corrija `src/index.html` (remova os marcadores, mantenha uma linha) e salve.
-1. De volta ao Desktop, commite o merge e clique em **Push origin**.
-1. Por fim, abra o pull request (`resolve-this-conflict` → `main`) no GitHub.com e faça o **Merge**.
+A Mona verá sua atualização e compartilhará o próximo passo. 🚀
 
 <details>
 <summary>Com dificuldades? 🤷</summary><br/>
 
-- Confirme que o pull request vai de **`resolve-this-conflict`** (compare) para **`main`** (base).
-- Confirme que você removeu **todos** os marcadores (`<<<<<<<`, `=======`, `>>>>>>>`). O arquivo deve conter apenas uma linha de `subtitle`.
-- O passo é concluído quando esse pull request é **mesclado** na `main`.
+- Clique em **Fetch origin** primeiro; sem isso o Desktop não sabe que a `main` mudou.
+- Após um **rebase**, é normal o Desktop pedir um push com **force-with-lease**. Isso é esperado porque o histórico da sua branch foi reescrito.
+- Em caso de conflito inesperado, o Desktop avisa e permite resolvê-lo antes de continuar.
 
 </details>

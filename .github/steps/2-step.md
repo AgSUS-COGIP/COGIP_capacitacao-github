@@ -49,7 +49,7 @@ O fluxo típico é:
 1. ![Sinalização do campo a ser preenchido no github desktop](https://raw.githubusercontent.com/AgSUS-COGIP/COGIP_capacitacao-github/main/src/images/commit-desktop.png)
 
 > [!NOTE]
-> Não se procupe com a nossa política de commits por agora, vamos ter tempo para nos ambientarmos com isso depois.
+> Não se procupe com a nossa política de commits por agora, vamos nos ambientar com ela já no **próximo passo**.
    
    Em seguida, clique em **Commit to add-project-files**.
 

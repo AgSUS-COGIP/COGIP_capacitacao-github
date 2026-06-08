@@ -1,42 +1,91 @@
-## Passo 4: Revise o Pull Request
+<!-- step-4-gitignore-check -->
 
-Antes de mesclar, os colegas **revisam** o pull request. A revisão é como as equipes pegam erros, compartilham conhecimento e concordam sobre o que entra na `main`.
+## Passo 4: Ignorando arquivos com `.gitignore`
 
-### 📖 Teoria: O que é uma revisão?
+Nem tudo que aparece na sua pasta deve ir para o repositório. Arquivos temporários, dependências baixadas, segredos e configurações pessoais do seu computador **não** pertencem ao histórico do projeto. Para isso existe o `.gitignore`. 🙈
 
-Uma **revisão** (review) é um retorno estruturado sobre um pull request. Na aba **Files changed** você pode:
+### 📖 Teoria: O que é o `.gitignore`?
 
-- Ler o **diff** (linhas adicionadas em verde, removidas em vermelho).
-- Deixar **comentários** em linhas específicas.
-- Enviar um veredito geral: **Comment**, **Approve** ou **Request changes**.
+O `.gitignore` é um arquivo de texto que lista **padrões de arquivos e pastas que o Git deve ignorar**. Arquivos que casam com esses padrões nunca aparecem em **Changes** e nunca são commitados.
 
-> [!NOTE]
-> O GitHub não permite que você **aprove** o seu *próprio* pull request, então neste exercício individual você enviará uma revisão do tipo **Comment**. Em uma equipe real, um colega faria a aprovação.
+Por que isso importa:
 
-### ⌨️ Atividade: Revise o seu pull request
+- **Evita lixo no repositório**: pastas como `node_modules/`, builds e logs.
+- **Protege segredos**: arquivos `.env`, chaves e senhas **nunca** devem ser versionados.
+- **Reduz conflitos**: arquivos específicos do seu sistema operacional ou editor (como `.DS_Store`, `Thumbs.db`, `.vscode/`) não atrapalham os colegas.
 
-1. Abra seu pull request no GitHub.com (do passo anterior) e clique na aba **Files changed**.
+A sintaxe é simples — um padrão por linha:
 
-2. Veja o diff para conferir exatamente o que sua branch altera. 👀
+```gitignore
+# Comentários começam com #
 
-3. (Opcional) Passe o mouse sobre uma linha e clique no **+** azul para deixar um comentário na linha.
+# Ignora uma pasta inteira
+node_modules/
 
-4. Clique no botão verde **Submit review** (canto superior direito).
+# Ignora todos os arquivos com uma extensão
+*.log
 
-5. Escreva um resumo curto, por exemplo:
+# Ignora um arquivo específico
+.env
 
-   ```txt
-   Ficou bom, a descrição do projeto está clara.
+# Arquivos de sistema operacional / editor
+.DS_Store
+Thumbs.db
+.vscode/
+```
+
+> [!TIP]
+> O site [gitignore.io](https://www.toptal.com/developers/gitignore) gera arquivos `.gitignore` prontos para a sua linguagem e ferramentas. O GitHub também oferece modelos ao criar um repositório.
+
+> [!IMPORTANT]
+> O `.gitignore` só afeta arquivos que **ainda não** foram commitados. Se um arquivo já está no histórico, adicioná-lo ao `.gitignore` não o remove — é preciso removê-lo do controle de versão primeiro.
+
+### ⌨️ Atividade: Crie um `.gitignore`
+
+1. Confirme que você está na branch `add-project-files` no GitHub Desktop.
+
+2. No seu editor, crie um arquivo chamado exatamente `.gitignore` na **raiz** do repositório com algum conteúdo, por exemplo:
+
+   ```gitignore
+   # Dependências
+   node_modules/
+
+   # Logs
+   *.log
+
+   # Variáveis de ambiente e segredos
+   .env
+
+   # Arquivos de sistema
+   .DS_Store
+   Thumbs.db
    ```
 
-6. Selecione **Comment** e clique em **Submit review**.
+   Salve o arquivo.
 
-7. Com sua revisão enviada, a Mona vai verificar seu trabalho e compartilhar o próximo passo. ✅
+3. De volta ao GitHub Desktop, o `.gitignore` aparecerá em **Changes**. Commite usando a política que você aprendeu:
+
+   ```txt
+   chore: adiciona arquivo .gitignore
+   ```
+
+4. Clique em **Push origin** para enviar.
+
+### ✅ Marque este passo como concluído
+
+1. Vá ao início deste comentário com as instruções deste passo.
+2. Clique no menu **`···`** no canto superior direito do comentário e escolha **Edit**.
+3. Marque a caixa trocando `[ ]` por `[x]` e clique em **Update comment**. Obs: deve ser exatamente `[x]`.
+
+- [ ] Criei um arquivo `.gitignore`, commitei seguindo a política e enviei (push).
+
+A Mona verá sua atualização e compartilhará o próximo passo. 🚀
 
 <details>
 <summary>Com dificuldades? 🤷</summary><br/>
 
-- Confirme que você clicou em **Submit review**; apenas digitar um comentário não é suficiente.
-- A opção **Approve** fica desabilitada porque você é o autor; use **Comment**.
+- O arquivo precisa se chamar exatamente `.gitignore` (com o ponto no início e sem extensão).
+- Alguns editores escondem arquivos que começam com ponto; ative a exibição de arquivos ocultos se não o vir.
+- Se um arquivo que você quer ignorar continua aparecendo, confirme que o padrão no `.gitignore` está correto e que o arquivo ainda não havia sido commitado antes.
 
 </details>
