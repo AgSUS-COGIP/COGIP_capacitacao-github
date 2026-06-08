@@ -28,7 +28,7 @@ Neste exercício, você vai:
 
 Basta copiar o exercício para a sua conta, dar à sua Octocat favorita (a Mona) **cerca de 20 segundos** para preparar a primeira lição e então **atualizar a página**.
 
-[![](https://img.shields.io/badge/Copiar%20Exerc%C3%ADcio-%E2%86%92-1f883d?style=for-the-badge&logo=github&labelColor=197935)](https://github.com/new?template_owner=mateusAgsus&template_name=introduction-to-git&owner=mateusAgsus&name=colaborar-com-github-desktop&description=Exerc%C3%ADcio:+Colaborar+no+GitHub+com+o+GitHub+Desktop&visibility=public)
+[![](https://img.shields.io/badge/Copiar%20Exerc%C3%ADcio-%E2%86%92-1f883d?style=for-the-badge&logo=github&labelColor=197935)](https://github.com/new?template_owner=AgSUS-COGIP&template_name=COGIP_capacitacao-github&owner=AgSUS-COGIP&name=colaborar-com-github-desktop&description=Exerc%C3%ADcio:+Colaborar+no+GitHub+com+o+GitHub+Desktop&visibility=public)
 
 Assim que sua cópia estiver pronta, o primeiro passo vai te guiar na instalação do **GitHub Desktop** e na clonagem do repositório. Todo o resto acontece no GitHub Desktop e no seu navegador.
 
