@@ -60,11 +60,11 @@ Exemplo: `feat(login): adiciona validação do campo nome`
 <summary><b>Anatomia de um conflito</b></summary><br/>
 
 ```diff
-<<<<<<< main
-versão atual na main
-=======
-versão da branch sendo mesclada
->>>>>>> sua-branch
+ <<<<<<< main
+ versão atual na main
+ =======
+ versão da branch sendo mesclada
+ >>>>>>> sua-branch
 ```
 
 Escolha o conteúdo final e **remova os três marcadores** (`<<<<<<<`, `=======`, `>>>>>>>`).
@@ -73,8 +73,8 @@ Escolha o conteúdo final e **remova os três marcadores** (`<<<<<<<`, `=======`
 
 ### 🔗 Onde isto vive no projeto
 
-- Política de commits: [`.githooks/commit-msg`](../../blob/main/.githooks/commit-msg)
-- Modelo de Pull Request: [`.github/pull_request_template.md`](../../blob/main/.github/pull_request_template.md)
-- Templates de issue: [`.github/ISSUE_TEMPLATE/`](../../tree/main/.github/ISSUE_TEMPLATE)
+- Política de commits: [`.githooks/commit-msg`](../../colaborar-com-github-desktop/blob/main/.githooks/commit-msg)
+- Modelo de Pull Request: [`.github/pull_request_template.md`](../../colaborar-com-github-desktop/blob/main/.github/pull_request_template.md)
+- Templates de issue: [`.github/ISSUE_TEMPLATE/`](../../colaborar-com-github-desktop/tree/main/.github/ISSUE_TEMPLATE)
 
 Bom trabalho — agora é só aplicar no dia a dia! 🚀
