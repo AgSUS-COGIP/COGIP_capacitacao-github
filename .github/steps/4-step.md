@@ -19,13 +19,13 @@ A sintaxe é simples — um padrão por linha:
 ```gitignore
 # Comentários começam com #
 
-# Ignora uma pasta inteira
+# Esse padrão ignora uma pasta inteira, nesse caso a pasta node_modules
 node_modules/
 
-# Ignora todos os arquivos com uma extensão
+#  Esse padrão ignora todos os arquivos com uma extensão, no caso arquivos .log
 *.log
 
-# Ignora um arquivo específico
+#  Esse padrão ignora um arquivo específico, nesse caso o arquivo .env
 .env
 
 # Arquivos de sistema operacional / editor
@@ -72,6 +72,10 @@ Thumbs.db
 4. Clique em **Push origin** para enviar.
 
 ### ✅ Marque este passo como concluído
+
+1. clique no checkbox abaixo.
+
+Se não funcionar,
 
 1. Vá ao início deste comentário com as instruções deste passo.
 2. Clique no menu **`···`** no canto superior direito do comentário e escolha **Edit**.
