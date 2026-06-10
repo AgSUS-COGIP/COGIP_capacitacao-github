@@ -101,6 +101,10 @@ Se retornar .githooks, funcionou.
 
 Como a ativação do hook acontece no seu computador, confirme você mesmo:
 
+1. Depois de ter seguido todos os passos acima marque a checkbox abaixo.
+   
+Ou então,
+
 1. Vá ao início deste comentário com as instruções deste passo.
 2. Clique no menu **`···`** no canto superior direito do comentário e escolha **Edit**.
 3. Marque a caixa trocando `[ ]` por `[x]` e clique em **Update comment**. Obs: não deixe espaços, deve ser exatamente `[x]`.
