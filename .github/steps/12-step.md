@@ -1,22 +1,9 @@
 ## Passo 12: Encerramento
 
-Excelente trabalho! 🎉 Você concluiu todo o fluxo de colaboração do dia a dia no GitHub, usando o GitHub Desktop e o navegador.
+Excelente trabalho! 🎉 Você praticou todo o fluxo de colaboração do dia a dia no GitHub — de clonar o repositório a resolver um conflito de merge.
 
-### 📖 Recapitulando: O ciclo de colaboração
-
-Este é o fluxo que você acabou de praticar, o mesmo que as equipes usam todos os dias:
-
-1. **Clonar** o repositório para o seu computador.
-2. Criar uma **branch** e **commitar** suas alterações.
-3. Seguir a **política de commits** (Conventional Commits) e ativar o hook de validação.
-4. Usar o **`.gitignore`** para manter fora do repositório o que não deve ser versionado.
-5. **Enviar** (push) a branch e abrir um **pull request**.
-6. **Revisar** as alterações.
-7. Manter a branch atualizada com a `main` (**Update from main / Rebase**).
-8. Fazer o **merge** do pull request.
-9. **Desfazer com segurança** quando necessário (Discard, Undo e Revert).
-10. Usar **issues** para acompanhar tarefas e bugs.
-11. **Resolver conflitos** quando duas alterações tocam a mesma linha.
+> [!TIP]
+> Logo após concluir, a Mona vai publicar um **Guia de Consulta Rápida** com o resumo de cada passo (onde clicar e quais comandos usar). Guarde aquele comentário para consultar sempre que precisar relembrar algo. 📌
 
 ### Última tarefa
     

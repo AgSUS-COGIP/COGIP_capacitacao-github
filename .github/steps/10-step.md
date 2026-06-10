@@ -39,7 +39,7 @@ Enquanto desenvolvia o projeto, você notou que a funcionalidade implementada ne
 
 2. Clique no botão verde **New issue**, note que temos alguns templates para issues, utilize a que for adequada ao contexto, caso nenhuma seja clique em blank issue para criar uma issue sem um template específico.
 
-3. Dê um **título** claro e específico à sua issue.
+3. Dê um **título** claro e específico à sua issue, num projeto real um exemplo de título de issue seria:
 
    ```txt
    Bug: Erro no login, campo nome não funciona.

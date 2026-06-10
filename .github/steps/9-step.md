@@ -2,7 +2,7 @@
 
 ## Passo 9: Desfazer com segurança (Undo, Discard e Revert)
 
-Errar faz parte! 😅 O importante é saber **desfazer com segurança**, sem perder trabalho nem bagunçar o histórico dos colegas. O GitHub Desktop oferece a ferramenta certa para cada situação, dependendo de **em que estágio** está a alteração que você quer desfazer.
+Errar faz parte! 😅 O importante é saber **desfazer com segurança**, sem perder trabalho nem bagunçar o histórico dos colegas. O GitHub Desktop oferece a ferramenta certa para cada situação, dependendo de **que estágio** está a alteração que você quer desfazer.
 
 ### 📖 Teoria: a ferramenta certa para cada estágio
 
@@ -11,9 +11,6 @@ Errar faz parte! 😅 O importante é saber **desfazer com segurança**, sem per
 | Alteração **ainda não commitada** | **Discard changes** | Descarta as edições não salvas no histórico, voltando o arquivo ao último commit. |
 | Commit feito mas **ainda não enviado** (push) | **Undo** | Desfaz o último commit e devolve as mudanças para a área de alterações, para você ajustar. |
 | Commit **já enviado / mesclado** | **Revert** | Cria um **novo commit** que desfaz as mudanças de um commit anterior, sem reescrever o histórico. |
-
-> [!IMPORTANT]
-> A diferença-chave: **Undo** só é seguro **antes** do push, porque reescreve o histórico local. Depois que algo já foi para o GitHub (especialmente na `main`), use **Revert** — ele desfaz a mudança de forma segura, criando um commit novo que todo mundo pode receber sem problemas.
 
 - **Discard changes**: na aba **Changes**, clique com o botão direito no arquivo → **Discard changes**.
 - **Undo**: logo após um commit, use o botão **Undo** no canto inferior esquerdo (você já viu ele no passo do primeiro commit!).
