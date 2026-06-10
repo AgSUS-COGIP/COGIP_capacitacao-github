@@ -60,11 +60,11 @@ Exemplo: `feat(login): adiciona validação do campo nome`
 <summary><b>Anatomia de um conflito</b></summary><br/>
 
 ```diff
-<<<<<<< main
-versão atual na main
-=======
-versão da branch sendo mesclada
->>>>>>> sua-branch
+ <<<<<<< main
+ versão atual na main
+ =======
+ versão da branch sendo mesclada
+ >>>>>>> sua-branch
 ```
 
 Escolha o conteúdo final e **remova os três marcadores** (`<<<<<<<`, `=======`, `>>>>>>>`).
