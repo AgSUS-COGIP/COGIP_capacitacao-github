@@ -27,20 +27,29 @@ Quando a `main` avança e a sua branch não, elas **divergem**. O GitHub Desktop
 
 ### ⌨️ Atividade: Atualize a sua branch pela `main`
 
-1. No GitHub Desktop, clique em **Fetch origin** para baixar as últimas mudanças do servidor. Você verá que a `main` recebeu um novo commit.
+1. No GitHub Desktop, clique em **Fetch origin** para baixar as últimas mudanças do servidor.
+
+   <br/>
+
+   > 🪧 **Observação importante**: o **Fetch** baixa o commit novo para a `main`, mas ele **ainda não aparece** no histórico da sua branch `add-project-files` — e isso é esperado! O commit está na `main`, não na sua branch. É justamente isso que vamos resolver agora. (Se quiser confirmar, selecione a branch **`main`** em **Current Branch** e veja o commit `Novidades da equipe` na aba **History**; depois volte para a `add-project-files`.)
 
 2. Confirme que a branch `add-project-files` está selecionada em **Current Branch**.
 
 3. Escolha **uma** das opções no menu **Branch** do topo:
 
-   - **Branch → Update from main** — para trazer a `main` via merge, **ou**
-   - **Branch → Rebase current branch...** e selecione **`main`** — para reaplicar seus commits por cima da `main`.
+   - **Branch → Update from main** — traz a `main` para a sua branch criando um **commit de merge**, **ou**
+   - **Branch → Rebase current branch...** e selecione **`main`** — reaplica seus commits por cima da `main`.
 
    <br/>
 
    > 🪧 **Observação**: como o arquivo enviado pelo colega é **diferente** dos seus, não haverá conflito — a sua branch apenas incorpora o commit novo da `main`. (Resolver conflitos de verdade vem em um passo mais adiante. 😉)
 
-4. Se você fez **rebase**, o Desktop pode pedir um **Push** com a opção **force-with-lease** (porque o histórico foi reescrito). Confirme o push. Se fez **Update from main**, basta um **Push origin** normal.
+4. **Agora sim**: abra a aba **History** com a `add-project-files` selecionada e confirme que o commit `Novidades da equipe` passou a fazer parte da sua branch. ✅
+
+5. Envie a atualização: se você fez **Update from main**, basta um **Push origin** normal. Se fez **rebase**, o Desktop pode pedir um **Push** com a opção **force-with-lease** (porque o histórico foi reescrito) — confirme.
+
+> [!NOTE]
+> O **Update from main** cria um commit de merge com uma mensagem automática (ex.: `Merge branch 'main'...`). Não se preocupe: o hook de commits que você ativou no passo 3 **ignora** commits de merge e de revert, então essa operação não será bloqueada.
 
 ### ✅ Marque este passo como concluído
 

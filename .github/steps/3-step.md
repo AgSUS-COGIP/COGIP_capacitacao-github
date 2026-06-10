@@ -43,7 +43,7 @@ chore: adiciona arquivo de configuração do editor
 
 ### 🔒 Como a política é garantida: o hook `commit-msg`
 
-Este repositório já inclui um **hook de validação** em [`.githooks/commit-msg`](../../blob/main/.githooks/commit-msg). Ele inspeciona cada mensagem de commit e **rejeita** as que estão fora do padrão.
+Este repositório já inclui um **hook de validação** em [`.githooks/commit-msg`](https://raw.githubusercontent.com/AgSUS-COGIP/COGIP_capacitacao-github/blob/main/.githooks/commit-msg). Ele inspeciona cada mensagem de commit e **rejeita** as que estão fora do padrão.
 
 Mas o Git **não** usa essa pasta automaticamente — por segurança, hooks ficam desativados até você habilitá-los. Você precisa fazer isso **uma vez** em cada cópia clonada.
 
@@ -52,33 +52,50 @@ Mas o Git **não** usa essa pasta automaticamente — por segurança, hooks fica
 
 1. Abra um terminal **na pasta do repositório**. No GitHub Desktop, vá em **Repository → Open in Command Prompt** (Windows) ou **Open in Terminal**.
 
-2. Aponte o Git para a pasta de hooks do projeto e garanta que o hook seja executável:
+2. Aponte o Git para a pasta de hooks do projeto e garanta que o hook seja executável, mas primeiro vamos verificar se o git está corretamente instalado, digite no terminal:
 
    ```bash
-   git config core.hooksPath .githooks && chmod +x .githooks/commit-msg
+   git --version
    ```
 
-   > 🪧 **Observação**: o `git config core.hooksPath .githooks` diz ao Git para procurar hooks na pasta `.githooks` do projeto. O `chmod +x` marca o arquivo como executável (necessário em Linux/macOS; no Windows com Git Bash não causa problemas).
+3. Se aparecer a versão do Git, está tudo certo para rodar:
 
-3. Pronto! A partir de agora, qualquer commit feito neste repositório — pela linha de comando **ou** pelo GitHub Desktop — será validado pelo hook.
+   ```bash
+   git config core.hooksPath .githooks
+   ```
+
+4. Para conferir se deu certo, use:
+
+   ```bash
+   git config --get core.hooksPath
+   ```
+
+Se retornar .githooks, funcionou.
+
+5. Pronto! A partir de agora, qualquer commit feito neste repositório — pela linha de comando **ou** pelo GitHub Desktop — será validado pelo hook.
 
 ### ⌨️ Atividade: Faça um commit seguindo a política
 
 1. No seu editor, faça uma pequena alteração na branch `add-project-files` — por exemplo, adicione uma linha ao `PROJECT.md`.
 
-2. No GitHub Desktop, escreva o **Summary** seguindo o padrão Conventional Commits, por exemplo:
+2. No GitHub Desktop, escreva o **Summary** deixando de seguir o padrão Conventional Commits para ver o erro, por exemplo:
+
+   ```txt
+   adiciona seção de objetivos ao PROJECT.md
+   ```
+> [!NOTE]
+> Se a mensagem estiver fora do padrão, o hook bloqueia o commit e mostra o formato esperado. Ajuste o **Summary** e tente novamente.
+   
+3. Agora vamos arrumar a mensagem de commit para subir a alteração:
 
    ```txt
    docs: adiciona seção de objetivos ao PROJECT.md
    ```
 
-   > [!TIP]
-   > Precisa explicar melhor a mudança? Escreva um título curto no **Summary** e detalhes no campo **Description** logo abaixo.
+> [!TIP]
+> Precisa explicar melhor a mudança? Escreva um título curto no **Summary** e detalhes no campo **Description** logo abaixo.
 
-3. Clique em **Commit to add-project-files** e depois em **Push origin**.
-
-   > [!NOTE]
-   > Se a mensagem estiver fora do padrão, o hook bloqueia o commit e mostra o formato esperado. Ajuste o **Summary** e tente novamente.
+4. Clique em **Commit to add-project-files** e depois em **Push origin**.
 
 ### ✅ Marque este passo como concluído
 

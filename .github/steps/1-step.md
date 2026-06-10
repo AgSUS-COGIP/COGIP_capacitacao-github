@@ -2,7 +2,7 @@
 
 ## Passo 1: Preparando o ambiente com o GitHub Desktop
 
-Boas-vindas! 👋 Neste exercício você vai aprender o fluxo de colaboração do dia a dia no GitHub, tudo por um aplicativo visual e amigável: o **GitHub Desktop**. Sem linha de comando!
+Boas-vindas! 👋 Neste exercício você vai aprender o fluxo de colaboração do dia a dia no GitHub, tudo por um aplicativo visual e amigável: o **GitHub Desktop**. 
 
 ### 📖 Teoria: O que é o GitHub Desktop?
 
