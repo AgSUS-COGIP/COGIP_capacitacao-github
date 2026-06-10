@@ -12,7 +12,7 @@ Por que isso importa:
 
 - **Evita lixo no repositório**: pastas como `node_modules/`, builds e logs.
 - **Protege segredos**: arquivos `.env`, chaves e senhas **nunca** devem ser versionados.
-- **Reduz conflitos**: arquivos específicos do seu sistema operacional ou editor (como `.DS_Store`, `Thumbs.db`, `.vscode/`) não atrapalham os colegas.
+- **Reduz conflitos**: arquivos específicos do seu sistema operacional ou editor (como `.DS_Store`, `Thumbs.db`, `.vscode/`) atrapalham os colegas.
 
 A sintaxe é simples — um padrão por linha:
 
