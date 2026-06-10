@@ -43,7 +43,7 @@ chore: adiciona arquivo de configuração do editor
 
 ### 🔒 Como a política é garantida: o hook `commit-msg`
 
-Este repositório já inclui um **hook de validação** em [`.githooks/commit-msg`](https://raw.githubusercontent.com/AgSUS-COGIP/COGIP_capacitacao-github/blob/main/.githooks/commit-msg). Ele inspeciona cada mensagem de commit e **rejeita** as que estão fora do padrão.
+Este repositório já inclui um **hook de validação** em [`.githooks/commit-msg`](../../colaborar-com-github-desktop/blob/main/.githooks/commit-msg). Ele inspeciona cada mensagem de commit e **rejeita** as que estão fora do padrão.
 
 Mas o Git **não** usa essa pasta automaticamente — por segurança, hooks ficam desativados até você habilitá-los. Você precisa fazer isso **uma vez** em cada cópia clonada.
 
